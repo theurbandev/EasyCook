@@ -14,6 +14,26 @@ export const CUISINES = [
   'BBQ & Grill',
 ] as const;
 
+export const CUISINE_EMOJI: Record<string, string> = {
+  Any: '🍽️',
+  American: '🍔',
+  Mexican: '🌮',
+  Italian: '🍝',
+  'Asian (any)': '🥢',
+  Chinese: '🥡',
+  Japanese: '🍣',
+  Thai: '🍜',
+  Korean: '🍚',
+  Vietnamese: '🍲',
+  Indian: '🍛',
+  Mediterranean: '🫒',
+  'BBQ & Grill': '🍖',
+};
+
+export const MEAL_EMOJI: Record<string, string> = { Dinner: '🍝', Lunch: '🥪', Breakfast: '🥞' };
+
+export const emojiFor = (cuisine: string) => CUISINE_EMOJI[cuisine] ?? '🍽️';
+
 /** Cuisines that count as a match when the user picks "Asian (any)". */
 export const ASIAN_CUISINES = ['Chinese', 'Japanese', 'Thai', 'Korean', 'Vietnamese', 'Indian'];
 

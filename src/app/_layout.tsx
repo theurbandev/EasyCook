@@ -6,7 +6,7 @@ import { StoreProvider } from '@/lib/store';
 export default function RootLayout() {
   return (
     <StoreProvider>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: colors.bg },

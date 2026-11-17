@@ -6,7 +6,7 @@ import { Button, Card, Empty, Stars, colors, s } from '@/components/ui';
 import { getApiKey } from '@/lib/apiKey';
 import { generate } from '@/lib/generator';
 import { useStore } from '@/lib/store';
-import { mealKey, type MealIdea } from '@/lib/types';
+import { emojiFor, mealKey, type MealIdea } from '@/lib/types';
 
 export default function ResultsScreen() {
   const store = useStore();
@@ -91,7 +91,9 @@ export default function ResultsScreen() {
                 </View>
               ) : null}
             </View>
-            <Text style={s.title}>{idea.name}</Text>
+            <Text style={s.title}>
+              {emojiFor(idea.cuisine)} {idea.name}
+            </Text>
             <Text style={[s.muted, { marginVertical: 4 }]}>
               {[idea.cuisine, idea.minutes ? `${idea.minutes} min` : null, idea.kidFriendly ? 'Kid-friendly' : null].filter(Boolean).join(' · ')}
             </Text>

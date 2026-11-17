@@ -1,34 +1,37 @@
 import { Ionicons } from '@expo/vector-icons';
 import type { ComponentProps, ReactNode } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Switch, Text, TextInput, View, type TextInputProps, type ViewStyle } from 'react-native';
+import { ActivityIndicator, Platform, Pressable, StyleSheet, Switch, Text, TextInput, View, type TextInputProps, type ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const colors = {
-  bg: '#170B1E',
-  card: 'rgba(255,255,255,0.07)',
-  cardSolid: '#2A1633',
-  text: '#FFF6EF',
-  muted: 'rgba(255,240,230,0.64)',
-  border: 'rgba(255,255,255,0.13)',
-  primary: '#FF9A62',
-  primarySoft: 'rgba(255,138,76,0.16)',
-  green: '#3E9B6B',
-  star: '#FFC46B',
-  danger: '#FF8A8A',
+  bg: '#FFF8EF',
+  card: 'rgba(255,255,255,0.78)',
+  cardSolid: '#FFFFFF',
+  text: '#2E1F17',
+  muted: '#7A6558',
+  border: 'rgba(120,72,40,0.13)',
+  primary: '#D9472B',
+  primarySoft: 'rgba(242,123,60,0.14)',
+  green: '#5B8C51',
+  star: '#F2A93B',
+  danger: '#B83A2C',
 };
+
+/** Cookbook-style serif for big headings. */
+export const serif = Platform.select({ ios: 'Georgia', android: 'serif', default: 'Georgia, serif' });
 
 // Built-in React Native gradients, so no native package or rebuild is needed.
 export const gradients = {
-  primary: 'linear-gradient(120deg, #FF8A4C 0%, #E8418F 100%)',
-  tabScene: 'radial-gradient(circle at 90% 0%, rgba(232,65,143,0.38) 0%, rgba(232,65,143,0) 50%), radial-gradient(circle at 0% 65%, rgba(255,138,76,0.22) 0%, rgba(255,138,76,0) 50%)',
+  primary: 'linear-gradient(120deg, #F27B3C 0%, #D9452B 100%)',
+  tabScene: 'radial-gradient(circle at 95% 0%, rgba(255,190,140,0.55) 0%, rgba(255,190,140,0) 55%), radial-gradient(circle at 0% 70%, rgba(170,205,150,0.35) 0%, rgba(170,205,150,0) 50%)',
   // Glow stays low so it doesn't meet the solid navigation header.
-  stackScene: 'radial-gradient(circle at 100% 100%, rgba(232,65,143,0.3) 0%, rgba(232,65,143,0) 55%), radial-gradient(circle at 0% 80%, rgba(255,138,76,0.18) 0%, rgba(255,138,76,0) 50%)',
-  orb: 'radial-gradient(circle at 32% 26%, #FFD9A0 0%, #FF8A4C 34%, #E8418F 68%, #6A1F8F 100%)',
-  tileWarm: 'linear-gradient(140deg, rgba(255,138,76,0.5) 0%, rgba(232,65,143,0.22) 100%)',
-  tileCool: 'linear-gradient(140deg, rgba(232,65,143,0.45) 0%, rgba(106,31,143,0.3) 100%)',
+  stackScene: 'radial-gradient(circle at 100% 100%, rgba(255,190,140,0.45) 0%, rgba(255,190,140,0) 55%), radial-gradient(circle at 0% 85%, rgba(170,205,150,0.3) 0%, rgba(170,205,150,0) 50%)',
+  plate: 'radial-gradient(circle at 50% 45%, #FFFFFF 0%, #FFFFFF 58%, #F4EBDF 62%, #FFFFFF 70%, #EFE3D3 100%)',
+  tileWarm: 'linear-gradient(140deg, #FFC89A 0%, #F79A6B 100%)',
+  tileCool: 'linear-gradient(140deg, #CFE3BF 0%, #9CC48E 100%)',
 };
 
-export const glow = '0px 8px 26px rgba(232,65,143,0.45)';
+export const glow = '0px 8px 22px rgba(217,69,43,0.28)';
 
 /** Large title for tab screens, which have no navigation header. */
 export function PageTitle({ title, subtitle }: { title: string; subtitle?: string }) {
@@ -87,7 +90,7 @@ export function ToggleRow({ label, hint, value, onChange }: { label: string; hin
         <Text style={[s.label, { marginBottom: hint ? 2 : 0 }]}>{label}</Text>
         {hint ? <Text style={[s.muted, { fontSize: 13 }]}>{hint}</Text> : null}
       </View>
-      <Switch value={value} onValueChange={onChange} trackColor={{ true: '#E8418F', false: 'rgba(255,255,255,0.2)' }} thumbColor="#FFF6EF" />
+      <Switch value={value} onValueChange={onChange} trackColor={{ true: colors.green, false: 'rgba(120,72,40,0.18)' }} thumbColor="#FFFFFF" />
     </View>
   );
 }
@@ -141,7 +144,7 @@ export function Field({ label, ...props }: TextInputProps & { label?: string }) 
   return (
     <View style={{ marginBottom: 14 }}>
       {label ? <Text style={s.label}>{label}</Text> : null}
-      <TextInput placeholderTextColor={colors.muted} keyboardAppearance="dark" {...props} style={[s.input, props.multiline && s.multiline, props.style]} />
+      <TextInput placeholderTextColor={colors.muted} keyboardAppearance="light" {...props} style={[s.input, props.multiline && s.multiline, props.style]} />
     </View>
   );
 }
@@ -165,14 +168,14 @@ export const s = StyleSheet.create({
   // The gradient lives on the navigator's scene style, so screens stay see-through.
   screen: { flex: 1, backgroundColor: 'transparent' },
   content: { padding: 16, paddingBottom: 120 },
-  pageTitle: { fontSize: 34, fontWeight: '700', color: colors.text, letterSpacing: -0.6 },
+  pageTitle: { fontSize: 34, fontWeight: '700', fontFamily: serif, color: colors.text, letterSpacing: -0.4 },
   section: { marginBottom: 22 },
   sectionTitle: { fontSize: 16, fontWeight: '600', color: colors.text, marginBottom: 10 },
   hint: { fontSize: 13, color: colors.muted, marginTop: -6, marginBottom: 10 },
   label: { fontSize: 15, fontWeight: '600', color: colors.text, marginBottom: 6 },
   chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   chip: { paddingHorizontal: 15, paddingVertical: 9, borderRadius: 22, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border },
-  chipOn: { backgroundImage: gradients.primary, borderColor: 'rgba(255,255,255,0.3)' },
+  chipOn: { backgroundImage: gradients.primary, borderColor: 'transparent' },
   chipText: { fontSize: 14, color: colors.text },
   chipTextOn: { color: '#FFFFFF', fontWeight: '600' },
   stepper: { flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start', backgroundColor: colors.card, borderRadius: 24, borderWidth: 1, borderColor: colors.border, marginBottom: 8 },
@@ -188,9 +191,9 @@ export const s = StyleSheet.create({
   multiline: { minHeight: 110, textAlignVertical: 'top' },
   card: { backgroundColor: colors.card, borderRadius: 24, padding: 18, borderWidth: 1, borderColor: colors.border, marginBottom: 14 },
   empty: { alignItems: 'center', padding: 32, gap: 8 },
-  emptyTitle: { fontSize: 20, fontWeight: '700', color: colors.text },
+  emptyTitle: { fontSize: 20, fontWeight: '700', fontFamily: serif, color: colors.text },
   emptyText: { fontSize: 15, color: colors.muted, textAlign: 'center', marginBottom: 8 },
-  title: { fontSize: 24, fontWeight: '700', color: colors.text, letterSpacing: -0.3 },
+  title: { fontSize: 24, fontWeight: '700', fontFamily: serif, color: colors.text },
   muted: { fontSize: 14, color: colors.muted },
   body: { fontSize: 15, color: colors.text, lineHeight: 22 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 8 },

@@ -1,11 +1,10 @@
-import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Button, Chip, Empty, PageTitle, Stars, colors, gradients, s } from '@/components/ui';
 import { useStore } from '@/lib/store';
-import type { SavedMeal } from '@/lib/types';
+import { emojiFor, type SavedMeal } from '@/lib/types';
 
 const SORTS = ['Top rated', 'Recent', 'Most made'] as const;
 
@@ -91,7 +90,7 @@ function MealTile({ meal, stars }: { meal: SavedMeal; stars: number }) {
         <Image source={{ uri: meal.photoUri }} style={tile.photo} contentFit="cover" />
       ) : (
         <View style={[tile.photo, tile.placeholder]}>
-          <Ionicons name="restaurant-outline" size={32} color={colors.text} />
+          <Text style={{ fontSize: 44 }}>{emojiFor(meal.cuisine)}</Text>
         </View>
       )}
       <View style={{ padding: 10, gap: 4 }}>
